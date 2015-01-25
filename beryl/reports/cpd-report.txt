@@ -1,0 +1,247 @@
+Found a 18 line (58 tokens) duplication in the following files: 
+Starting at line 29 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\graphics\UriBitmapSource.java
+Starting at line 40 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\graphics\HttpBitmapSource.java
+
+				final InputStream is = new FileInputStream(this.localPath);
+				final Bitmap tempBitmap = BitmapFactory.decodeStream(is, null, options);
+				
+				if(! options.inJustDecodeBounds) {
+					dispose();
+					this.bitmap = tempBitmap;
+				}
+				
+				is.close();
+				success = true;
+			} catch(Exception e) {
+				dispose();
+				success = false;
+			}
+		}
+		
+		return success;
+	}
+=====================================================================
+Found a 7 line (47 tokens) duplication in the following files: 
+Starting at line 49 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+Starting at line 55 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+Starting at line 61 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+Starting at line 67 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+
+	public void updateValue(String cacheKey, String dataContent) {
+		final ContentValues values = new ContentValues();
+		values.put(FIELD_DATACONTENT, dataContent);
+		this.db.update(DB_TABLE, values, WHERE_PRIMARYKEY, new String [] { cacheKey });
+	}
+	
+	public void updateValue(String cacheKey, byte [] dataContent) {
+=====================================================================
+Found a 7 line (44 tokens) duplication in the following files: 
+Starting at line 85 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+Starting at line 91 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+Starting at line 97 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+Starting at line 103 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+
+	public void insert(String cacheKey, String dataContent, String metaData) {
+		final ContentValues values = setupContentValues(cacheKey, metaData);
+		values.put(FIELD_DATACONTENT, dataContent);
+		this.db.insert(DB_TABLE, null, values);
+	}
+	
+	public void insert(String cacheKey, byte [] dataContent, String metaData) {
+=====================================================================
+Found a 7 line (42 tokens) duplication in the following files: 
+Starting at line 49 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+Starting at line 73 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+
+	public void updateValue(String cacheKey, byte [] dataContent) {
+		final ContentValues values = new ContentValues();
+		values.put(FIELD_DATACONTENT, dataContent);
+		this.db.update(DB_TABLE, values, WHERE_PRIMARYKEY, new String [] { cacheKey });
+	}
+	
+	public void updateMetaData(String cacheKey, String metaData) {
+=====================================================================
+Found a 8 line (42 tokens) duplication in the following files: 
+Starting at line 43 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\database\UpdatableDatabaseOpenHelper.java
+Starting at line 64 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\database\UpdatableDatabaseOpenHelper.java
+
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		final DatabaseUpdateParameters params = createUpdateParams(db);
+		final DatabaseUpdateRunner updateRunner = new DatabaseUpdateRunner();
+		final DatabaseUpdateLoader updateLoader = new DatabaseUpdateLoader(updateRunner, params);
+		final Log log = params.log;
+
+		try {
+			log.i("onUpgrade: Load update database scripts...");
+=====================================================================
+Found a 6 line (39 tokens) duplication in the following files: 
+Starting at line 29 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\deployment\ActivityUpdateCheckCallback.java
+Starting at line 40 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\deployment\ActivityUpdateCheckCallback.java
+
+	public void onUpdateNotAvailable(final UpdateManifestApplication response) {
+		final Activity activity = activityRef.get();
+		if(activity != null) {
+			activity.runOnUiThread(new Runnable() {
+				public void run() {
+					callback.onUpdateNotAvailable(response);
+=====================================================================
+Found a 5 line (37 tokens) duplication in the following files: 
+Starting at line 85 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+Starting at line 109 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\FileCacheStoreImpl.java
+
+	public void insert(String cacheKey, byte [] dataContent, String metaData) {
+		final ContentValues values = setupContentValues(cacheKey, metaData);
+		values.put(FIELD_DATACONTENT, dataContent);
+		this.db.insert(DB_TABLE, null, values);
+	}
+=====================================================================
+Found a 6 line (37 tokens) duplication in the following files: 
+Starting at line 215 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\diagnostics\Log.java
+Starting at line 196 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\app\ContractRegistry.java
+
+		ArrayList<Field> result = new ArrayList<Field>();
+		Class<?> clazz = obj.getClass();
+		Field [] fields = clazz.getDeclaredFields();
+
+		for(Field field : fields) {
+			field.setAccessible(true);
+=====================================================================
+Found a 5 line (36 tokens) duplication in the following files: 
+Starting at line 18 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Market.java
+Starting at line 42 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Market.java
+Starting at line 66 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Market.java
+
+		public void prepareIntent(Context context) {}
+
+		public Intent getIntent() {
+			final Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(MARKET_Scheme + "search?q=pub:" + publisherName));
+=====================================================================
+Found a 6 line (35 tokens) duplication in the following files: 
+Starting at line 18 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\deployment\ActivityUpdateCheckCallback.java
+Starting at line 29 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\deployment\ActivityUpdateCheckCallback.java
+
+	public void onUpdateAvailable(final UpdateManifestApplication response) {
+		final Activity activity = activityRef.get();
+		if(activity != null) {
+			activity.runOnUiThread(new Runnable() {
+				public void run() {
+					callback.onUpdateAvailable(response);
+=====================================================================
+Found a 3 line (33 tokens) duplication in the following files: 
+Starting at line 76 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\deployment\UpdateChecker.java
+Starting at line 81 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\deployment\UpdateChecker.java
+
+	public static UpdateChecker checkForProductionUpdate(String manifestUrl, Activity activity, IUpdateCheckCallback callback) {
+		final ActivityUpdateCheckCallback contextAwareCallback = new ActivityUpdateCheckCallback(activity, callback);
+		return checkForUpdate(manifestUrl, activity, contextAwareCallback, Constants.TYPE_PRODUCTION);
+=====================================================================
+Found a 4 line (32 tokens) duplication in the following files: 
+Starting at line 10 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\diagnostics\LogCatLogWriter.java
+Starting at line 28 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\diagnostics\LogCatLogWriter.java
+Starting at line 34 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\diagnostics\LogCatLogWriter.java
+Starting at line 40 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\diagnostics\LogCatLogWriter.java
+
+	public void w(String tag, String msg) {
+		if(tag == null) tag = "";
+		if(msg == null) msg = "";
+		android.util.Log.w(tag, msg);
+=====================================================================
+Found a 8 line (30 tokens) duplication in the following files: 
+Starting at line 52 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\ObjectCache.java
+Starting at line 82 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\ObjectCache.java
+
+	public void evict() {
+		String evictTarget = null;
+		for(String key : cache.keySet()) {
+			evictTarget = key;
+			break;
+		}
+		
+		if(evictTarget != null) {
+=====================================================================
+Found a 6 line (28 tokens) duplication in the following files: 
+Starting at line 96 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Gallery.java
+Starting at line 86 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Camera.java
+
+	public abstract static class GetCameraCaptureResult implements IActivityResultHandler {
+
+		public BitmapWrapper bitmapResult = BitmapWrapper.Empty;
+
+		public void prepareResult(Context context, Bundle resultBundle, int resultCode, Intent data) {
+			Uri imageUri = null;
+=====================================================================
+Found a 7 line (27 tokens) duplication in the following files: 
+Starting at line 21 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\graphics\UriBitmapSource.java
+Starting at line 28 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\graphics\HttpBitmapSource.java
+
+	public HttpBitmapSource(Parcel in) {
+		readFromParcel(in);
+	}
+	
+	public boolean load(Context context, Options options) {
+		boolean success = false;
+		if(localPath == null) {
+=====================================================================
+Found a 5 line (27 tokens) duplication in the following files: 
+Starting at line 96 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Gallery.java
+Starting at line 114 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Gallery.java
+
+	public abstract static class GetImageResult implements IActivityResultHandler {
+
+		public BitmapWrapper bitmapResult = BitmapWrapper.Empty;
+
+		public void prepareResult(Context context, Bundle resultBundle, int resultCode, Intent data) {
+=====================================================================
+Found a 4 line (26 tokens) duplication in the following files: 
+Starting at line 134 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\app\ContractRegistry.java
+Starting at line 148 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\app\ContractRegistry.java
+
+	private void detachMembers(Object obj) {
+		final ArrayList<Field> fields = getContractFields(obj);
+		for(Field field : fields) {
+			try {
+=====================================================================
+Found a 7 line (25 tokens) duplication in the following files: 
+Starting at line 31 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\policies\SizeCacheLimitPolicy.java
+Starting at line 23 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\cache\policies\CountSizeCacheLimitPolicy.java
+
+	}
+
+	public void onGet(String key, ICachedItem item) {
+	}
+	
+	public void onAdd(String key, ICachedItem item) {
+		final int numItems = count.incrementAndGet();
+=====================================================================
+Found a 8 line (25 tokens) duplication in the following files: 
+Starting at line 46 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\graphics\UriBitmapSource.java
+Starting at line 68 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\graphics\HttpBitmapSource.java
+Starting at line 89 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\graphics\BitmapWrapper.java
+Starting at line 28 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\graphics\BitmapBitmapSource.java
+
+	}
+
+	public int describeContents() {
+		return 0;
+	}
+
+	public void writeToParcel(Parcel dest, int flags) {
+    	dest.writeParcelable(bitmap, flags);
+=====================================================================
+Found a 4 line (25 tokens) duplication in the following files: 
+Starting at line 24 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Settings.java
+Starting at line 28 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Settings.java
+
+		} else {
+			intent = new Intent(Intent.ACTION_VIEW);
+			intent.setComponent(ComponentName.unflattenFromString(ComponentName_InstalledAppDetails));
+			intent.putExtra(APP_PKG_NAME_CUPCAKE, package_name);
+=====================================================================
+Found a 3 line (25 tokens) duplication in the following files: 
+Starting at line 14 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Web.java
+Starting at line 20 of C:\AndroidSDK\projects\jeremyje\projects\android\libraries\beryl\code\beryl\src\org\beryl\intents\android\Market.java
+
+		public Intent getIntent() {
+			final Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(MARKET_Scheme + "details?id=" + packageName));

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:layout_alignParentTop="true">
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_purchase_code"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <Spinner android:id="@+id/purchase_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/choose_purchase_code" />
+    
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/developer_payload"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <EditText android:id="@+id/developer_payload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/options"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+		<Button android:id="@+id/buy_button"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/buy"
+		    />
+		<Button android:id="@+id/restore_button"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/restore_items"
+		    />
+	</LinearLayout>
+	<TextView android:id="@+id/billing_state"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_above="@id/options"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

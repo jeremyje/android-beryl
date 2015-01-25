@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.futonredemption.example.dungeons"
+      android:versionCode="1"
+      android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="15" />
+    
+    <!-- Required permission to use in-app billing. -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <application android:icon="@drawable/ic_launcher" android:label="@string/app_name">
+        <activity android:name="org.beryl.market.test.MarketBillingTestActivity"
+                  android:label="@string/app_name" android:theme="@style/ApplicationTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name="org.beryl.market.Dungeons"
+                  android:label="@string/app_name" android:exported="false">
+        </activity>
+
+        <service android:name="org.beryl.billing.BillingService" />
+
+        <receiver android:name="org.beryl.billing.BillingReceiver">
+            <intent-filter>
+                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
+                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
+                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+    
+
+</manifest>

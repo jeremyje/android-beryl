@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<project default="main">	
+	<property file="user.properties" />
+	<property file="build.properties" />
+
+	<target name="main" description="Beryl Project Deployment" depends="init,build-projects,javadoc">
+	</target>
+	
+	<target name="init" depends="jar-clean">
+		<tstamp />
+		
+		<mkdir dir="${beryl.jar.path}" />
+		<mkdir dir="${beryl.jar.sourcepath}" />
+	</target>
+	
+	<target name="build-projects">
+		<antcall target="beryl-build">
+			<param name="projectdir" value="beryl" />
+			<param name="package" value="org.beryl" />
+			<param name="classpathid" value="default-classpath" />
+		</antcall>
+		<antcall target="beryl-build">
+			<param name="projectdir" value="beryl-experimental" />
+			<param name="package" value="org.beryl.experimental" />
+			<param name="classpathid" value="default-berylcore-classpath" />
+		</antcall>
+		<antcall target="beryl-build">
+			<param name="projectdir" value="beryl-ext" />
+			<param name="package" value="org.beryl.ext" />
+			<param name="classpathid" value="default-berylcore-classpath" />
+		</antcall>
+		<!--
+		<antcall target="beryl-build">
+			<param name="projectdir" value="beryl-market" />
+			<param name="package" value="org.beryl.billing" />
+			<param name="classpathid" value="default-berylcore-classpath" />
+		</antcall>
+		-->
+	</target>
+	
+	<target name="javadoc">
+		<javadoc destdir="${beryl.javadoc.path}" author="false" packagenames="org.beryl" version="true" use="true" windowtitle="Beryl API" additionalparam="-notimestamp" docfilessubdirs="true" stylesheetfile="beryl-style.css" useexternalfile="true">
+			<header>
+			<![CDATA[<script type="text/javascript" src="http://docs.android-beryl.googlecode.com/hg/resources/jquery.js"></script>     
+<script type="text/javascript" src="http://docs.android-beryl.googlecode.com/hg/resources/jquery.beautyOfCode.js"></script> 
+<script type="text/javascript">                                         
+$.beautyOfCode.init({
+      theme: 'Default',
+			brushes: ['Java', 'Xml', 'Plain'],
+			defaults: { gutter: false },
+			ready: function() {
+				$.beautyOfCode.beautifyAll();
+			}
+		});
+ </script> ]]>
+			</header>
+			<fileset refid="all-project-java-files" />
+			<classpath refid="default-googleapi-classpath" />
+			<!-- TODO: stylesheetfile -->
+			<link href="http://developer.android.com/reference/" offline="true" packagelistloc="${android.sdk.javadoc.offline}" />
+				<link href="http://download.oracle.com/javase/1.6.0/docs/api/" />
+		</javadoc>
+		<copy todir="javadoc">
+      <fileset dir="beryl-javadoc-assets" />
+		</copy>
+	</target>
+	
+	<target name="beryl-build" depends="java-jar">
+		<echo message="projectdir=${projectdir} package=${package}"/>
+	</target>
+	
+	<target name="java-compile-clean" description="Clean Project">
+		<delete dir="${projectdir}/bin" />
+	</target>
+	
+	<target name="java-compile" depends="java-compile-clean">
+		<mkdir dir="${projectdir}/bin" />
+		<javac srcdir="${projectdir}/src" destdir="${projectdir}/bin" classpathref="${classpathid}" debug="true" optimize="false" includeantruntime="false" source="1.5" target="1.5" />
+	</target>
+	
+	<target name="java-jar-clean">
+		<delete file="${beryl.jar.path}/${package}.jar" />
+		<delete file="${beryl.jar.sourcepath}/${package}${beryl.jar.postfix}.jar" />
+	</target>
+	
+	<target name="java-jar" depends="java-compile,java-jar-clean">
+		<!-- Build 1 jar with sources and binaries. -->
+		<jar jarfile="${beryl.jar.path}/${package}.jar" basedir="${projectdir}/bin" includes="**/*.class,**/*.aidl" compress="true" />
+    <jar jarfile="${beryl.jar.sourcepath}/${package}${beryl.jar.postfix}.jar" basedir="${projectdir}/src" includes="**/*" compress="true">
+        <zipfileset includes="**/*.class,**/*.aidl" src="${beryl.jar.path}/${package}.jar"/>
+    </jar>
+    <copy file="proguard.cfg" tofile="jars/proguard.cfg" />
+    <copy file="proguard.cfg" tofile="jar-sources/proguard.cfg" />
+	</target>
+	
+	<target name="jar-clean">
+		<delete dir="${beryl.jar.path}" />
+		<delete dir="${beryl.jar.sourcepath}" />
+	</target>
+
+	<!-- Class Paths -->
+	
+	<path id="default-classpath">
+		<fileset dir="${android.sdk.platforms.default}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<path id="default-berylcore-classpath">
+		<path refid="default-classpath" />
+		<fileset dir="${beryl.jar.path}">
+			<include name="org.beryl.jar" />
+		</fileset>
+	</path>
+
+	<path id="default-googleapi-classpath">
+		<fileset dir="${android.sdk.platforms.default}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${android.sdk.addons.googleapi.default}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<fileset id="all-project-java-files" dir="">
+		<include name="**/*.java" />
+	</fileset>
+	<!--
+	References:
+	http://ant.apache.org/manual/toc.html
+	http://firstclassthoughts.co.uk/ant/javadoc.html
+	http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js
+	http://startbigthinksmall.wordpress.com/2009/05/28/beautyofcode-jquery-plugin-for-syntax-highlighter-2-0-by-alex-gorbatchev/
+	-->
+</project>
